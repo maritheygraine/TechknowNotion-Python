@@ -69,7 +69,7 @@ class OtherFunctions:
                 else:
                     raise ValueError
             except ValueError:
-                print("Invalid Input")
+                print("Invalid input.")
 
     def input_validation(self, x):
         while True:
@@ -77,7 +77,7 @@ class OtherFunctions:
                 i = int(input(x))
                 if (type(i) is not int) or (i < 0): raise ValueError
             except ValueError:
-                print("Input must postive integer\n")
+                print('Invalid input.', '\n')
             else:
                 return i
 
@@ -94,9 +94,7 @@ def main():
             choice = int(input("Please enter a number: "))
             if choice not in range(1, 6): raise ValueError
         except ValueError:
-            print('Input must be positive integer.', '\n')
-        except ValueError:
-            print('Input is out of range.', '\n')
+            print('Invalid input.', '\n')
         else:
             break
     if (choice == 1):
@@ -134,7 +132,7 @@ def input_module_details():
                     pass
             if marker == 1:                                                 # if module name exist
                 print("\nModules Exist")
-                p.try_again('Make new module details?', 'Invalid input', 1)
+                p.try_again('Make new module details?', 'Invalid input.', 1)
             else:                                                           # data is not located : add new data to file
                 with open("all_modules.csv", 'a', newline='\n') as f1, open("queue.csv", 'a', newline='\n') as f2:
                     f1writer = csv.writer(f1)
@@ -142,7 +140,7 @@ def input_module_details():
                     f2writer = csv.writer(f2)
                     f2writer.writerow([module_name, type, tasks, priority])
                 print("---Module Details Saved---")
-                p.try_again('Make new module details?', 'Invalid input', 1)
+                p.try_again('Make new module details?', 'Invalid input.', 1)
 
 
 # Menu 2 - view
@@ -156,7 +154,7 @@ def view_module():
             choice = int(input("Please enter a number: "))
             if choice not in range(1, 4): raise ValueError
         except ValueError:
-            print('Invalid Input', '\n')
+            print('Invalid input.', '\n')
         else:
             break
     if choice == 1:                                                       # all completed modules
@@ -202,7 +200,7 @@ def schedule_module():
             choice = int(input("Please enter a number: "))
             if choice not in range(1, 3): raise ValueError
         except ValueError:
-            print('Invalid Input', '\n')
+            print('Invalid input.', '\n')
         else:
             break
     p = OtherFunctions()
@@ -261,10 +259,10 @@ def get_a_module():
         p.iteration(lines)                                              # display the data
         while True:
             try:
-                choice = int(input('\nMark as complete the topmost module? YES(1) or NO(0): '))
+                choice = int(input('Mark as complete the topmost module? YES(1) or NO(0): '))
                 if choice not in range(0, 2): raise ValueError
             except ValueError:
-                print('Invalid Input', '\n')
+                print('Invalid input.', '\n')
             else:
                 break
         if choice == 1:
