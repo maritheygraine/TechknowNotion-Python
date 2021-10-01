@@ -69,15 +69,28 @@ class OtherFunctions:
             except ValueError:
                 print("Invalid input.")
 
-    def input_validation(self, x):
-        while True:
-            try:
-                i = int(input(x))
-                if (type(i) is not int) or (i < 0): raise ValueError
-            except ValueError:
-                print('Invalid input.', '\n')
-            else:
-                return i
+    def input_validation(self, x, y):
+        if y == 1:
+            while True:
+                try:
+                    i = int(input(x))
+                    if (type(i) is not int) or (i < 0): raise ValueError
+                except ValueError:
+                    print('Invalid input.', '\n')
+                else:
+                    return i
+        elif y == 2:
+            while True:
+                try:
+                    i = input(x)
+                    if i == " " : raise ValueError
+                    else:
+                        return i
+                except ValueError:
+                    print('Invalid input.', '\n')
+                else:
+                    return i
+
 
 def clear():
     os.system('cls')
@@ -115,10 +128,10 @@ def input_module_details():
     print('\tINPUT MODULE DETAILS\n')
     while True:
         p = OtherFunctions()
-        module_name = input('Modules: ')
-        type = input('Type: ')
-        tasks = p.input_validation('No. of Tasks: ')
-        priority = p.input_validation('Priority: ')
+        module_name = p.input_validation('Modules: ',2)
+        type = p.input_validation('Type: ',2)
+        tasks = p.input_validation('No. of Tasks: ',1)
+        priority = p.input_validation('Priority: ',1)
         with open("all_modules.csv", "r") as f:
             csvreader = csv.reader(f, delimiter=",")
             for row in csvreader:
@@ -164,7 +177,7 @@ def view_module():
             p.iteration('completed_modules.csv')                            # display the data
             p.try_again('View module again?', 'Invalid input.', 2)
         else:
-            print("\t\t\t\t   No completed module yet")
+            print("\tNo completed module yet")
             p.try_again('View module again?', 'Invalid input.', 2)
     elif choice == 2:                                                       # all module
         clear()
@@ -175,7 +188,7 @@ def view_module():
             p.iteration('all_modules.csv')
             p.try_again('View module again?', 'Invalid input.', 2)
         else:
-            print("\t\t\t\t\tNo module yet")
+            print("\tNo module yet")
             p.try_again('View module again?', 'Invalid input.', 2)
     elif choice == 3:
         main()
