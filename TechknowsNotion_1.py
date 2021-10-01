@@ -1,8 +1,8 @@
 import os, csv, io
 from os import path
 import os
-from itertools import islice
 import pandas as pd
+from Tools.scripts.dutree import display
 
 list1 = []                                                                  # list of all projects
 
@@ -20,11 +20,14 @@ class Preview:
 class OtherFunctions:
     def iteration(self, filename):
         data = pd.read_csv(filename)
-        print(data)
+
+        df = pd.DataFrame(data)
+        left_aligned_df = df.style.set_properties(**{'text-align': 'left'})
+        display(self, left_aligned_df)
 
 
     def is_empty(self, x):
-        with open(x, 'r') as csvfile:  # check queue if empty or not
+        with open(x, 'r') as csvfile:                                       # check queue if empty or not
             csv_dict = [row for row in csv.DictReader(csvfile)]
             if len(csv_dict) == 0:
                 self.o = False
@@ -152,13 +155,13 @@ def view_module():
             print('Invalid input.', '\n')
         else:
             break
-    if choice == 1:                                                       # all completed modules
+    if choice == 1:                                                         # all completed modules
         clear()
         print('\t     VIEW MODULES')
         print('    LIST OF ALL COMPLETED MODULES\n')
         p = OtherFunctions()
         if p.is_empty('completed_modules.csv') == True:
-            p.iteration('completed_modules.csv')                                              # display the data
+            p.iteration('completed_modules.csv')                            # display the data
             p.try_again('View module again?', 'Invalid input.', 2)
         else:
             print("\t\t\t\t   No completed module yet")
@@ -242,7 +245,7 @@ def get_a_module():
     print('\t      GET A MODULE\n')
     if p.is_empty('queue.csv') == True:
         a = True
-        p.iteration('queue.csv')                                              # display the data
+        p.iteration('queue.csv')                                            # display the data
         while True:
             try:
                 choice = int(input('\nMark as complete the topmost module? YES(1) or NO(0): '))
@@ -257,31 +260,31 @@ def get_a_module():
                 lines = []
                 with open('queue.csv', newline='') as f:
                     reader = csv.reader(f)
-                    row1 = next(reader)                                 # header
-                    row2 = next(f)                                      # get the first row
-                list5 = row2.split(",")                                 # put the first row in list
-                list6 = [i.strip() for i in list5]                      # removing \n \t
+                    row1 = next(reader)                                     # header
+                    row2 = next(f)                                          # get the first row
+                list5 = row2.split(",")                                     # put the first row in list
+                list6 = [i.strip() for i in list5]                          # removing \n \t
                 with open('queue.csv', 'r') as readFile:
                     reader = csv.reader(readFile)
                     for row in reader:
-                        lines.append(row)                               # add data row in list - lines
-                        for field in row:                               # iterate the row
-                            if field == list6[0]:                       # check if module of first row(list6) if same
-                                lines.pop()                             # remove line
+                        lines.append(row)                                   # add data row in list - lines
+                        for field in row:                                   # iterate the row
+                            if field == list6[0]:                           # check if module of first row(list6) if same
+                                lines.pop()                                 # remove line
                                 break
                 with open('queue.csv', 'w', newline='') as writeFile:
                     writer = csv.writer(writeFile)
-                    writer.writerows(lines)                             # rewrite csv file with the list - lines
+                    writer.writerows(lines)                                 # rewrite csv file with the list - lines
                 file2 = open("completed_modules.csv", 'a', newline='')
                 awriter = csv.writer(file2)
-                awriter.writerow(list6)                                 # add first row(list5) to completed projects
+                awriter.writerow(list6)                                     # add first row(list5) to completed projects
                 file2.close()
                 print("---Module complete---")
                 file1 = open('queue.csv', 'r')
                 lines = file1.readlines()
                 file1.close()
                 print()
-                p.iteration('queue.csv')                                      # display updated queue"""
+                p.iteration('queue.csv')                                    # display updated queue"""
             else:
                 print("Queue is empty")
         elif choice == 0:
