@@ -83,7 +83,7 @@ class OtherFunctions:
             while True:
                 try:
                     i = input(x)
-                    if i == " " : raise ValueError
+                    if i == " " or i == "" : raise ValueError
                     else:
                         return i
                 except ValueError:
