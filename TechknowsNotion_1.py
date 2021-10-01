@@ -2,6 +2,7 @@ import os, csv, io
 from os import path
 import os
 from itertools import islice
+import pandas as pd
 
 list1 = []                                                                  # list of all projects
 
@@ -17,16 +18,9 @@ class Preview:
 
 
 class OtherFunctions:
-    def iteration(self, ln):
-        print("Modules\t\t\tType\t\t\tNo. of Tasks\t\t\tPriority")
-        for x in range(len(ln)):                                            # iterate per row
-            list4 = []
-            if x == 0:
-                pass                                                        # skip header
-            else:
-                list4 = ln[x].split(",")                                    # transfer row to new list - list 4
-                i = Preview(list4)
-                i.view2()                                                   # view data using class preview
+    def iteration(self, filename):
+        data = pd.read_csv(filename)
+        print(data)
 
     def is_empty(self, x):
         with open(x, 'r') as csvfile:  # check queue if empty or not
@@ -163,10 +157,7 @@ def view_module():
         print('\t\t\t\tLIST OF ALL COMPLETED MODULES\n')
         p = OtherFunctions()
         if p.is_empty('completed_modules.csv') == True:
-            proj = open('completed_modules.csv', 'r')
-            lines = proj.readlines()                                        # transfer all data to list - lines
-            proj.close()
-            p.iteration(lines)                                              # display the data
+            p.iteration('completed_modules.csv')                                              # display the data
             p.try_again('View module again?', 'Invalid input.', 2)
         else:
             print("\t\t\t\t   No completed module yet")
@@ -177,10 +168,7 @@ def view_module():
         print('\t\t\t\t\tALL MODULES\n')
         p = OtherFunctions()
         if p.is_empty('all_modules.csv') == True:
-            proj = open('all_modules.csv', 'r')
-            lines = proj.readlines()
-            proj.close()
-            p.iteration(lines)
+            p.iteration('all_modules.csv')
             p.try_again('View module again?', 'Invalid input.', 2)
         else:
             print("\t\t\t\t\tNo module yet")
@@ -234,7 +222,7 @@ def schedule_module():
             file3 = open('queue.csv', 'r')
             lines = file3.readlines()
             file3.close()
-            p.iteration(lines)
+            p.iteration('queue.csv')
 
             p.try_again('Go back to schedule module?', 'Invalid input.', 3)
         else:
@@ -252,11 +240,8 @@ def get_a_module():
     a = False
     print('\t\t\t\t\tGET A MODULE\n')
     if p.is_empty('queue.csv') == True:
-        file1 = open('queue.csv', 'r')
-        lines = file1.readlines()
-        file1.close()
         a = True
-        p.iteration(lines)                                              # display the data
+        p.iteration('queue.csv')                                              # display the data
         while True:
             try:
                 choice = int(input('Mark as complete the topmost module? YES(1) or NO(0): '))
@@ -295,7 +280,7 @@ def get_a_module():
                 lines = file1.readlines()
                 file1.close()
                 print()
-                p.iteration(lines)                                      # display updated queue"""
+                p.iteration('queue.csv')                                      # display updated queue"""
             else:
                 print("Queue is empty")
         elif choice == 0:
