@@ -22,6 +22,7 @@ class OtherFunctions:
         data = pd.read_csv(filename)
         print(data)
 
+
     def is_empty(self, x):
         with open(x, 'r') as csvfile:  # check queue if empty or not
             csv_dict = [row for row in csv.DictReader(csvfile)]
@@ -153,8 +154,8 @@ def view_module():
             break
     if choice == 1:                                                       # all completed modules
         clear()
-        print('\t\t\t\t\tVIEW MODULES')
-        print('\t\t\t\tLIST OF ALL COMPLETED MODULES\n')
+        print('\t     VIEW MODULES')
+        print('    LIST OF ALL COMPLETED MODULES\n')
         p = OtherFunctions()
         if p.is_empty('completed_modules.csv') == True:
             p.iteration('completed_modules.csv')                                              # display the data
@@ -164,8 +165,8 @@ def view_module():
             p.try_again('View module again?', 'Invalid input.', 2)
     elif choice == 2:                                                       # all module
         clear()
-        print('\t\t\t\t\tVIEW MODULES')
-        print('\t\t\t\t\tALL MODULES\n')
+        print('\t     VIEW MODULES')
+        print('\t     ALL MODULES\n')
         p = OtherFunctions()
         if p.is_empty('all_modules.csv') == True:
             p.iteration('all_modules.csv')
@@ -182,7 +183,7 @@ def schedule_module():
     """ Goes to menu 3 """
     clear()
     print('\tSCHEDULE MODULES\n')
-    print('1. View Updated Schedule of Techknow\n2. Go Back\n')
+    print('1. View Updated Schedule\n2. Go Back\n')
     while True:
         try:
             choice = int(input("Please enter a number: "))
@@ -194,8 +195,8 @@ def schedule_module():
     p = OtherFunctions()
     if choice == 1:
         clear()
-        print('\t\t\t\t\tSCHEDULE PROJECTS')
-        print('\t\t\t   VIEW SCHEDULE UPDATED SCHEDULE OF TECHKNOW\n')
+        print('\t     VIEW MODULES')
+        print('    VIEW SCHEDULE UPDATED SCHEDULE\n')
         if p.is_empty('queue.csv') == True:
             queue_projects = open('queue.csv', 'r')
             data = csv.DictReader(queue_projects)                           # read the file and separated the value
@@ -238,13 +239,13 @@ def get_a_module():
     p = OtherFunctions()
     clear()
     a = False
-    print('\t\t\t\t\tGET A MODULE\n')
+    print('\t      GET A MODULE\n')
     if p.is_empty('queue.csv') == True:
         a = True
         p.iteration('queue.csv')                                              # display the data
         while True:
             try:
-                choice = int(input('Mark as complete the topmost module? YES(1) or NO(0): '))
+                choice = int(input('\nMark as complete the topmost module? YES(1) or NO(0): '))
                 if choice not in range(0, 2): raise ValueError
             except ValueError:
                 print('Invalid input.', '\n')
